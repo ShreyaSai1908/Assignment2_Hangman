@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Serialization;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -38,7 +39,7 @@ namespace Assignment2_Hangman
                 usrGuessWord[i] = '_';
             }
 
-            
+            /*
             Console.WriteLine("Secret Word");
             for (i = 0; i < secretWordLenght; i++)
             {
@@ -46,7 +47,7 @@ namespace Assignment2_Hangman
             }
             
             Console.WriteLine();
-            /*
+            
             Console.WriteLine("UserGuess Word");            
             for (i = 0; i < secretWordLenght; i++)
             {
@@ -85,12 +86,18 @@ namespace Assignment2_Hangman
                                 usrGuessWord[i] = usrGuess;
                                 hit = -393;
                                 gamePoint++;
-                            }
-                                                        
+                            }                            
                         }
+                        
                     }
 
-                    if (hit != -393)
+                    if (incorrectLetters.ToString().Contains(usrGuess))
+                    {
+                        repeatedGuess = -111;
+                    }
+                    
+
+                    if (hit != -393 && repeatedGuess != -111)
                     {
                         incorrectLetters.Append(usrGuess);
                     }
