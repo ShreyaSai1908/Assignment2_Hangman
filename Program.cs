@@ -14,11 +14,13 @@ namespace Assignment2_Hangman
             int secretWordLenght = 0;
             int i = 0;
             int hit = 0;
+            int repeatedGuess = 0;
             int gamePoint = 0;
 
             String[] secretWordList = { "forest", "hicking", "lagoon", "river", "mountains" };
             char[] secretWord;
             char[] usrGuessWord;
+
 
             StringBuilder incorrectLetters = new StringBuilder();
 
@@ -36,7 +38,7 @@ namespace Assignment2_Hangman
                 usrGuessWord[i] = '_';
             }
 
-            /*
+            
             Console.WriteLine("Secret Word");
             for (i = 0; i < secretWordLenght; i++)
             {
@@ -44,6 +46,7 @@ namespace Assignment2_Hangman
             }
             
             Console.WriteLine();
+            /*
             Console.WriteLine("UserGuess Word");            
             for (i = 0; i < secretWordLenght; i++)
             {
@@ -63,6 +66,7 @@ namespace Assignment2_Hangman
                 while (gamePoint < secretWordLenght && guessCounter < 10)
                 {
                     hit = 0;
+                    repeatedGuess = 0;
                     char usrGuess = '_';
                     Console.Write("Guess a Letter:");
                     usrGuess = Convert.ToChar(Console.ReadLine());
@@ -71,9 +75,18 @@ namespace Assignment2_Hangman
                     {
                         if (secretWord[i] == usrGuess)
                         {
-                            usrGuessWord[i] = usrGuess;
-                            hit = -393;
-                            gamePoint++;
+                            if (usrGuessWord[i] == usrGuess)
+                            {
+                                repeatedGuess = -111;
+                                hit = -393;
+                            }
+                            else
+                            {
+                                usrGuessWord[i] = usrGuess;
+                                hit = -393;
+                                gamePoint++;
+                            }
+                                                        
                         }
                     }
 
@@ -81,10 +94,14 @@ namespace Assignment2_Hangman
                     {
                         incorrectLetters.Append(usrGuess);
                     }
-
-                    guessCounter++;
+                    
+                    if (repeatedGuess != -111)
+                    {
+                        guessCounter++;
+                    }
 
                     //Results after every guess
+                    Console.WriteLine("--------------------------------------------------------");
                     Console.Write("Your Guess " + guessCounter + ":");
                     for (i = 0; i < secretWordLenght; i++)
                     {
@@ -92,7 +109,8 @@ namespace Assignment2_Hangman
                     }
                     Console.WriteLine();
                     Console.WriteLine("Incorrect Guess:" + incorrectLetters);
-                    Console.Write("Game Point:" + gamePoint);
+                    Console.WriteLine("Game Point:" + gamePoint);
+                    Console.WriteLine("--------------------------------------------------------");
                     Console.WriteLine();
                 }
             }
